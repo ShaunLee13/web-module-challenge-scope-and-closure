@@ -107,7 +107,7 @@ function finalScore(callback, innings){
   return endScore;
 }
 
-console.log(finalScore(inning, 9));
+// console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -130,8 +130,21 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(callback, innings) {
+  const currentInning = ['', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th']
+
+  callback();
+  let score1=0;
+  let score2=0;
+
+  for(let i = 1; i <= innings; i++){
+    score1= inning() + score1;
+    score2= inning() + score2;
+
+    console.log(`${i}${currentInning[i]} inning: ${score1} - ${score2}`);
+  }
+
+  return `Final Score: ${score1} - ${score2}`;
 }
 
-
+console.log(scoreboard(inning, 9));
