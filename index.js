@@ -28,10 +28,15 @@ function processFirstItem(stringList, callback) {
  * 
  * 1. What is the difference between counter1 and counter2?
  * 
+ * counter1 uses a closure; by defining the let variable of count inside its function, it is only accessible to it and its children. counter2 doesn't close count in its function and so could be accessed from any function.
+ * 
  * 2. Which of the two uses a closure? How can you tell?
+ * 
+ * counter1 uses a closure, indicated by the count being accessed within the function counter().
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
  *
+ * Closures are frequently used in making isolated counter functions that keep variables separated. by defining new counter consts each const will keep its own individual count. counter2 would be a better option for things where you don't need to isolate the variable or when the variable needs to be shared across functions.
 */
 
 // counter1 code
@@ -56,11 +61,13 @@ function counter2() {
 
 Write a function called `inning` that generates a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
-function inning(/*Code Here*/){
-
-    /*Code Here*/
-
+function inning(team){
+  let score= 0;
+  score = Math.floor(Math.random() * 3);
+  return score;
 }
+
+// console.log(inning());
 
 /* Task 3: finalScore()
 
@@ -76,11 +83,31 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+//Build a function that takes random score from inning and adds it innings number of times.
 
-  /*Code Here*/
+function finalScore(callback, innings){
+  callback();
+  let total= inning();
+  let total2= inning();
 
+  for(let i = 0; i < innings; i++){
+    total = total + inning();
+  }
+
+  for(let i = 0; i < innings; i++){
+    total2 = total2 + inning();
+  }
+
+
+  const endScore = {
+    'Home': total,
+    'Away': total2
+  }
+
+  return endScore;
 }
+
+// console.log(finalScore(inning, 9));
 
 /* Task 4: 
 
@@ -103,8 +130,21 @@ and returns the score at each pont in the game, like so:
 
 Final Score: 6 - 10 */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(callback, innings) {
+  const currentInning = ['', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th', 'th', 'th', 'th']
+
+  callback();
+  let score1=0;
+  let score2=0;
+
+  for(let i = 1; i <= innings; i++){
+    score1= inning() + score1;
+    score2= inning() + score2;
+
+    console.log(`${i}${currentInning[i]} inning: ${score1} - ${score2}`);
+  }
+
+  return `Final Score: ${score1} - ${score2}`;
 }
 
-
+console.log(scoreboard(inning, 9));
